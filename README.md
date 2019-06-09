@@ -4,8 +4,9 @@ WEB based sentiment analyzer which predicts positive, neutral and negative emoti
 
 MySQL Command to create user_score table
 
+'''
 CREATE TABLE user_score(
 	name varchar(50),
 	score varchar(50)
 );
-
+'''
