@@ -1,0 +1,124 @@
+{% extends "layout.html"%}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            Score
+        </div>
+        <div class="col">
+            {{ score }}
+        </div>
+        <div class="'col">
+            {{ username }}
+        </div>
+        <div class="col text-right">
+            <a href="/logout" >Log Out</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="/addscore">
+                <div class="form-group">
+                    <input autocomplete="off" class="form-control" name="message" placeholder="Write Something...."
+                           type="text">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="compound">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="negative-text">
+
+        </div>
+        <div class="col" id="negative-value">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="neutral-text">
+
+        </div>
+        <div class="col" id="neutral-value">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="positive-text">
+
+        </div>
+        <div class="col" id="positive-value">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $("form input:first").keyup(function () {
+        var input_data = $("form input:first").serialize();
+
+        $.post(
+            "/check",
+            input_data
+        )
+
+        $.getJSON(
+            "/check",
+            input_data,
+            function (score) {
+                console.log("Compound " + score.compound + " negative " + score.neg + " neutral " + score.neu + " positive " + score.pos)
+
+                if(score.compound >= 0.5) {
+                    $("#compound").text("Positive Sentence");
+                } else if (score.compound <= -0.5) {
+                    $("#compound").text("Negative Sentence");
+                } else {
+                    $("#compound").text("Neutral Sentence");
+                }
+
+                $("#negative-text").text("Negative");
+                $("#neutral-text").text("Neutral");
+                $("#positive-text").text("Positive");
+
+                $("#negative-value").text(score.neg);
+                $("#neutral-value").text(score.neu);
+                $("#positive-value").text(score.pos);
+
+                //Chart
+                var ctx = canvas.getContext('2d');
+                var config = {
+                    type: 'bar',
+                    data: {
+                        labels: ['Negative', 'Neutral', 'Positive'],
+                        datasets: [{
+                            label: 'Score',
+                            data: [
+                                score.neg,
+                                score.neu,
+                                score.pos
+                            ],
+                            backgroundColor: [
+                                '#DC143C',
+                                '#838B83',
+                                '#00A86B'
+                            ]
+                        }]
+                    }
+                }
+                var chart = new Chart(ctx, config);
+            }
+        )
+    })
+</script>
+
+{% endblock %}
