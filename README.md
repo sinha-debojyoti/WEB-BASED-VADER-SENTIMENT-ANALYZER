@@ -9,7 +9,7 @@ MySQL Command to create user_score table
 		score varchar(50)
 	);
 
-Login Page of the website
+Login Page of the webapp
 ![image](images/login.jpeg)
 
 Neutral sentence  
