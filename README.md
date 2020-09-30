@@ -12,13 +12,13 @@ MySQL Command to create user_score table
 Login Page of the webapp
 ![image](images/login.jpeg)
 
-Neutral sentence  
+Neutral sentences  
 ![image](images/neutral.jpeg)
 
-Positive sentence  
+Positive sentences  
 ![image](images/positive.jpeg)
 
-Negative sentence  
+Negative sentences  
 ![image](images/negative.jpeg)
 
 Display Score
