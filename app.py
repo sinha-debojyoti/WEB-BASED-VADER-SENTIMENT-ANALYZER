@@ -3,7 +3,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import mysql.connector
 
 app = Flask(__name__)
-app.secret_key = 'hello'
+app.secret_key = 'debo'
 
 '''
 	MySQL Command to create user_score table
